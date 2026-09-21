@@ -2,6 +2,8 @@ defmodule Energex.Item do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @fields [:description, :power_consumption, :rate]
+
   schema "items" do
     field :description, :string
     field :power_consumption, :float
@@ -11,9 +13,9 @@ defmodule Energex.Item do
   end
 
   @doc false
-  def changeset(item, attrs) do
-    item
-    |> cast(attrs, [:description, :power_consumption, :rate])
-    |> validate_required([:description, :power_consumption, :rate])
+  def changeset(attrs) do
+    %__MODULE__{}
+    |> cast(attrs, @fields)
+    |> validate_required(@fields)
   end
 end
