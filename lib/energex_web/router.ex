@@ -5,8 +5,11 @@ defmodule EnergexWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", EnergexWeb do
+  scope "/api" do
     pipe_through :api
+
+    forward "/graphql", Absinthe.Plug, schema: EnergexWeb.Schema
+    forward "/graphiql", Absinthe.Plug.GraphiQL, schema: EnergexWeb.Schema, interface: :playground
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
